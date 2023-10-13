@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# Environments
+venv/
+logs/
+neural/datasets/*
+neural/models/*
+
+# Developer files
+*.bat
+*.db
+test*
