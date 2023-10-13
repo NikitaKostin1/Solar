@@ -5,4 +5,4 @@ from typing import Final
 
 
 class Env(ABC):
-	TOKEN: Final = os.environ.get('TOKEN', 'define me!')
+	TOKEN: Final = os.getenv("TOKEN", None)
