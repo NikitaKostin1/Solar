@@ -3,7 +3,6 @@ from aiogram.dispatcher import FSMContext
 
 from telegram_bot.keyboards import reply, inline
 from telegram_bot.entities.states import DatasetState
-from telegram_bot.entities.errors import TxtExtensionError
 from telegram_bot.assets import text as txt
 
 from loguru import logger
@@ -22,7 +21,7 @@ async def download(message: Message, state: FSMContext):
 	file_name = message.document.file_name
 
 	if not file_name.endswith(".txt"):
-		await message.answer(TxtExtensionError.message)
+		await message.answer(txt.file_extension)
 		return
 
 	path = os.path.join(config.NEURAL_DATASETS_DIR, file_name)

@@ -3,7 +3,6 @@ from aiogram.types import Message, ChatType, ContentType
 from aiogram.types.message import ContentType as MessageContentType
 from aiogram.types import InlineKeyboardButton
 
-from telegram_bot.entities.errors import NoFilesUploadedError
 from telegram_bot.entities.states import DatasetState
 from telegram_bot.keyboards import reply, inline
 from telegram_bot.assets import text as txt
@@ -45,7 +44,7 @@ async def choose_training_dataset(message: Message):
 	datasets_files = util.get_neural_dataset_files()
 
 	if not datasets_files:
-		await message.answer(NoFilesUploadedError.message)
+		await message.answer(txt.no_files_uploaded)
 	else:
 		await message.answer(
 			txt.select_dataset,
