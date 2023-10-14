@@ -20,7 +20,7 @@ async def start(message: Message):
 	"""
 	await message.answer(
 		txt.start.format(first_name=message.from_user.first_name),
-		reply_markup=reply.DATASET_OPTIONS
+		reply_markup=reply.DATASETS_MENU
 	)
 
 
@@ -55,8 +55,8 @@ async def choose_training_dataset(message: Message):
 @logger.catch
 def register_users_handlers(dp: Dispatcher) -> None:
 	dp.register_message_handler(start, commands=["start"], chat_type=ChatType.PRIVATE)
-	dp.register_message_handler(upload_dataset, lambda message: message.text == "Download dataset 📄", chat_type=ChatType.PRIVATE)
-	dp.register_message_handler(choose_training_dataset, lambda message: message.text == "Choose dataset", chat_type=ChatType.PRIVATE)
+	dp.register_message_handler(upload_dataset, lambda message: message.text == "Upload dataset 📥", chat_type=ChatType.PRIVATE)
+	dp.register_message_handler(choose_training_dataset, lambda message: message.text == "Choose dataset 📄", chat_type=ChatType.PRIVATE)
 
 	dp.register_message_handler(dataset.download, content_types=MessageContentType.DOCUMENT, state=DatasetState.download, chat_type=ChatType.PRIVATE)
 	dp.register_message_handler(dataset.cancel_download, lambda message: message.text == "Cancel ❌", state=DatasetState.download, chat_type=ChatType.PRIVATE)

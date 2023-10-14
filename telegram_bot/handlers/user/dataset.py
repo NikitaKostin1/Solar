@@ -29,7 +29,7 @@ async def download(message: Message, state: FSMContext):
 	await message.document.download(destination_file=path)
 	await message.answer(
 		txt.download_successful.format(path=path),
-		reply_markup=reply.DATASET_OPTIONS
+		reply_markup=reply.DATASETS_MENU
 	)
 	await state.finish()
 
@@ -41,7 +41,7 @@ async def cancel_download(message: Message, state: FSMContext):
 	"""
 	await message.answer(
 		txt.cancelled,
-		reply_markup=reply.DATASET_OPTIONS
+		reply_markup=reply.DATASETS_MENU
 	)
 	await state.finish()
 
@@ -77,7 +77,7 @@ async def start_training(callback: CallbackQuery, state: FSMContext):
 		txt.dataset_training_started.format(
 			dataset_name=dataset_name
 		),
-		reply_markup=reply.DATASET_OPTIONS
+		reply_markup=reply.DATASETS_MENU
 	)
 
 	await callback.message.edit_text(
@@ -96,7 +96,7 @@ async def cancel_training(callback: CallbackQuery, state: FSMContext):
 
 	await callback.message.answer(
 		txt.cancelled,
-		reply_markup=reply.DATASET_OPTIONS
+		reply_markup=reply.DATASETS_MENU
 	)
 	await callback.message.edit_text(
 		text=callback.message.text,
