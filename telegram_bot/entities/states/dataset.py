@@ -2,16 +2,10 @@ from aiogram.dispatcher.filters.state import State, StatesGroup
 
 
 
-class Download(StatesGroup):
-	download = State()
+class Upload(StatesGroup):
+	send_file = State()
 
 
 
 class Train(StatesGroup):
-	train = State()
-
-
-
-class Dataset(Download, Train):
-	pass
-	
+	confirm_training = State()

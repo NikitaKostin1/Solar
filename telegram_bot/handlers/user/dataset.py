@@ -13,9 +13,9 @@ import neural
 
 
 @logger.catch
-async def download(message: Message, state: FSMContext):
+async def upload(message: Message, state: FSMContext):
 	"""
-	Handle downloading a dataset.
+	Handle uploading a dataset.
 	"""
 	user_id = message.from_user.id
 	file_name = message.document.file_name
@@ -35,7 +35,7 @@ async def download(message: Message, state: FSMContext):
 
 
 @logger.catch
-async def cancel_download(message: Message, state: FSMContext):
+async def cancel_upload(message: Message, state: FSMContext):
 	"""
 	Handle canceling the dataset download.
 	"""
@@ -60,13 +60,13 @@ async def choose_for_training(callback: CallbackQuery):
 		txt.selected_dataset.format(
 			dataset_name=dataset_name
 		),
-		reply_markup=inline.create_start_training(dataset_name)
+		reply_markup=inline.create_confirm_training(dataset_name)
 	)
-	await DatasetState.train.set()
+	await DatasetState.Train.confirm_training.set()
 
 
 @logger.catch
-async def start_training(callback: CallbackQuery, state: FSMContext):
+async def confirm_training(callback: CallbackQuery, state: FSMContext):
 	"""
 	Handle starting the training of a dataset.
 	"""
@@ -90,7 +90,7 @@ async def start_training(callback: CallbackQuery, state: FSMContext):
 @logger.catch
 async def cancel_training(callback: CallbackQuery, state: FSMContext):
 	"""
-	Handle canceling the training process.
+	Handle canceling the training confirmation.
 	"""
 	await state.finish()
 

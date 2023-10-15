@@ -23,7 +23,7 @@ def create_dataset_selection(datasets_files: List[str]) -> InlineKeyboardMarkup:
 
 
 @logger.catch
-def create_start_training(dataset_name: str) -> InlineKeyboardMarkup:
+def create_confirm_training(dataset_name: str) -> InlineKeyboardMarkup:
 	"""
 	Creates an InlineKeyboardMarkup for starting the neural model training process.
 
@@ -31,7 +31,7 @@ def create_start_training(dataset_name: str) -> InlineKeyboardMarkup:
 		dataset_name (str): Name of the dataset.
 	"""
 	keyboard = InlineKeyboardMarkup(row_width=1)
-	start_button = InlineKeyboardButton(text="Start ✅", callback_data=f"start_training {dataset_name}")
+	start_button = InlineKeyboardButton(text="Start ✅", callback_data=f"confirm_training {dataset_name}")
 	cancel_button = InlineKeyboardButton(text="Cancel ❌", callback_data="cancel_training")
 	keyboard.add(start_button, cancel_button)
 
