@@ -5,6 +5,7 @@ from telegram_bot.keyboards import reply, inline
 from telegram_bot.entities.states import DatasetState
 from telegram_bot.assets import text as txt
 
+from . import util
 from loguru import logger
 import config
 import os
@@ -13,9 +14,21 @@ import neural
 
 
 @logger.catch
-async def upload(message: Message, state: FSMContext):
+async def upload_menu(message: Message):
 	"""
-	Handle uploading a dataset.
+	Showing the upload menu.
+	"""
+	await message.answer(
+		txt.upload_dataset,
+		reply_markup=reply.CANCEL
+	)
+	await DatasetState.Upload.send_file.set()
+
+
+@logger.catch
+async def confirm_upload(message: Message, state: FSMContext):
+	"""
+	Confirmation of dataset upload and file processing.
 	"""
 	user_id = message.from_user.id
 	file_name = message.document.file_name
@@ -47,13 +60,28 @@ async def cancel_upload(message: Message, state: FSMContext):
 
 
 @logger.catch
-async def choose_for_training(callback: CallbackQuery):
+async def train_menu(message: Message):
 	"""
-	Handle choosing a dataset for training.
+	Show the training menu and list available datasets for training.
+	"""
+	datasets_files = util.get_neural_dataset_files()
+
+	if not datasets_files:
+		await message.answer(txt.no_files_uploaded)
+	else:
+		await message.answer(
+			txt.select_dataset,
+			reply_markup=inline.create_dataset_selection(datasets_files)
+		)
+
+
+@logger.catch
+async def selected_dataset(callback: CallbackQuery):
+	"""
+	Handle the user's selection of a dataset for training.
 	"""
 	user_id = callback.message.from_user.id
 	dataset_name = callback.data.split()[1]
-	await callback.answer()
 	await callback.message.delete()
 
 	await callback.message.answer(
