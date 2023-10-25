@@ -1,14 +1,17 @@
-# Byte-compiled / optimized / DLL files
+# Temporary and Cache Files
 __pycache__/
 *.py[cod]
-
-# Environments
-venv/
+*.session
 logs/
+
+# Virtual Environment and Databases
+venv/
+*.bat
+*.db
+
+# Neural Network Files
 neural/datasets/*
 neural/models/*
 
-# Developer files
-*.bat
-*.db
+# Test Files
 test*

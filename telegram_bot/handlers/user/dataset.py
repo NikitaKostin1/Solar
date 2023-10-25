@@ -41,19 +41,7 @@ async def confirm_upload(message: Message, state: FSMContext):
 
 	await message.document.download(destination_file=path)
 	await message.answer(
-		txt.download_successful.format(path=path),
-		reply_markup=reply.DATASETS_MENU
-	)
-	await state.finish()
-
-
-@logger.catch
-async def cancel_upload(message: Message, state: FSMContext):
-	"""
-	Handle canceling the dataset download.
-	"""
-	await message.answer(
-		txt.cancelled,
+		txt.dataset_download_successful.format(path=path),
 		reply_markup=reply.DATASETS_MENU
 	)
 	await state.finish()
@@ -113,20 +101,3 @@ async def confirm_training(callback: CallbackQuery, state: FSMContext):
 		reply_markup=None
 	)
 	neural.create_training_thread(dataset_name)
-
-
-@logger.catch
-async def cancel_training(callback: CallbackQuery, state: FSMContext):
-	"""
-	Handle canceling the training confirmation.
-	"""
-	await state.finish()
-
-	await callback.message.answer(
-		txt.cancelled,
-		reply_markup=reply.DATASETS_MENU
-	)
-	await callback.message.edit_text(
-		text=callback.message.text,
-		reply_markup=None
-	)

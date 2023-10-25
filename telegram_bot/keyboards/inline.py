@@ -32,7 +32,7 @@ def create_confirm_training(dataset_name: str) -> InlineKeyboardMarkup:
 	"""
 	keyboard = InlineKeyboardMarkup(row_width=1)
 	start_button = InlineKeyboardButton(text="Start ✅", callback_data=f"confirm_training {dataset_name}")
-	cancel_button = InlineKeyboardButton(text="Cancel ❌", callback_data="cancel_training")
-	keyboard.add(start_button, cancel_button)
+	cancel_button = InlineKeyboardButton(text="Cancel ❌", callback_data="cancel")
+	keyboard.add(start_button).add(cancel_button)
 
 	return keyboard

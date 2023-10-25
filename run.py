@@ -1,6 +1,6 @@
 #!/usr/bin/python
 from loguru import logger
-from misc.path import PathManager
+from misc import PathManager
 from telegram_bot import start_telegram_bot
 
 import config
