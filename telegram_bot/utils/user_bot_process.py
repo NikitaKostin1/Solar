@@ -61,10 +61,9 @@ class UserBotProcess(metaclass=SingletonMeta):
 				on_success = False
 				return on_success
 
-			cls._processes[user_id] = True
-			# Popen(
-			# 	[executable, user_bot_dir, user_bot_session, str(user_id)]
-			# )
+			cls._processes[user_id] = Popen(
+				[executable, user_bot_dir, user_bot_session, str(user_id)]
+			)
 			operations.set_user_bot_session_condition(user_id, True)
 
 		return on_success
@@ -83,6 +82,6 @@ class UserBotProcess(metaclass=SingletonMeta):
 			This method stops the user's bot process and sets it as inactive.
 		"""
 		if cls.is_active(user_id):
-			# cls._processes[user_id].kill()
+			cls._processes[user_id].kill()
 			del cls._processes[user_id]
 			operations.set_user_bot_session_condition(user_id, False)
